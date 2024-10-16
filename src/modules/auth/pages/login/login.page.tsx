@@ -3,6 +3,7 @@ import { Button } from '../../../../shared/components/button/button.component';
 import { useAuthContext } from '../../providers/contexts/auth.hook';
 import { useState } from 'react';
 import { InputPassword } from '@/shared/components/input-password/input-password.component';
+import { Link } from 'react-router-dom';
 
 export function LoginPage() {
 	const {
@@ -18,7 +19,11 @@ export function LoginPage() {
 	return (
 		<main className='w-96'>
 			<h3 className='mb-24 text-2xl'>
-				É novo por aqui? Realize seu <b>Primeiro Acesso.</b>
+				É novo por aqui? Realize seu
+				<br />
+				<Link to='/first-access/registry' className='font-bold'>
+					Primeiro Acesso.
+				</Link>
 			</h3>
 			<form className='flex flex-col gap-16'>
 				<Input
@@ -38,9 +43,6 @@ export function LoginPage() {
 					<Button label='Entrar' variant='filled' fullWidth />
 				</div>
 			</form>
-			<span className='block text-center mt-8 text-lg'>
-				Não possui conta? <b>Cadastre-se!</b>
-			</span>
 		</main>
 	);
 }
