@@ -4,8 +4,11 @@ export default {
 	theme: {
 		extend: {},
 		colors: {
-			primary: 'red',
-			secondary: 'blue'
+			transparent: 'transparent',
+			primary: '#545F71',
+			secondary: '#121212',
+			white: '#f1f1f1',
+			dark: '#121212'
 		}
 	},
 	plugins: [],
