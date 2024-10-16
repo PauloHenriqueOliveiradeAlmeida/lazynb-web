@@ -1,5 +1,9 @@
-function App() {
-	return <></>;
-}
+import { Router } from './shared/routes/setup';
 
-export default App;
+export function App() {
+	return (
+		<>
+			<Router />
+		</>
+	);
+}
