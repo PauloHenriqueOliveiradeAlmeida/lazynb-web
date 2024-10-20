@@ -1,9 +1,15 @@
 import { useInputOTP } from './input-otp.hook';
 
-export const InputOTP = () => {
-	const { states, handlers } = useInputOTP();
+interface InputOTPProps {
+	value: string;
+	onChange: (value: string) => void;
+}
+
+export const InputOTP = ({ value = '', onChange }: InputOTPProps) => {
+	const { states, handlers } = useInputOTP(value, onChange);
+
 	return (
-		<div className='flex gap-4'>
+		<div className='flex gap-4 items-center justify-center'>
 			{states.otpNumbers.map((value, index) => {
 				return (
 					<input
