@@ -37,7 +37,9 @@ export function LoginPage() {
 						value={inputs.password}
 						onChange={(value) => setInputs((prevstate) => ({ ...prevstate, password: value }))}
 					/>
-					<span className='block text-right pt-2'>Esqueceu a Senha?</span>
+					<Link to='/forgot-password/send' className='block text-right pt-2'>
+						Esqueceu a Senha?
+					</Link>
 				</div>
 				<div className='flex justify-around items-center'>
 					<Button label='Entrar' variant='filled' fullWidth />
