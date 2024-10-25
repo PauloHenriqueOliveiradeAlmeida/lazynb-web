@@ -1,5 +1,5 @@
-import { useField } from 'formik';
-import { HTMLInputTypeAttribute, ReactNode, useRef } from 'react';
+import { HTMLInputTypeAttribute, ReactNode } from 'react';
+import { useInput } from './input.hook';
 
 interface InputProps {
 	placeholder: string;
@@ -9,28 +9,30 @@ interface InputProps {
 }
 
 export const Input = ({ placeholder, name, type, icon }: InputProps) => {
-	const inputRef = useRef<HTMLInputElement>(null);
-	const floatingLabel = !!inputRef.current?.value;
+	const { states, handlers } = useInput(name);
 
-	const [field, meta] = useField(name);
+	const textColor = states.meta.touched && states.meta.error ? 'text-error' : 'text-primary';
 
 	return (
-		<div className='relative'>
-			<input
-				ref={inputRef}
-				type={type || 'text'}
-				className='text-primary border-primary border bg-transparent rounded-md w-full px-4 py-2 outline-none'
-				{...field}
-			/>
-			<div className='text-primary absolute right-3 top-1/2 -translate-y-1/2 w-5'>{icon}</div>
-			<label
-				onClick={() => inputRef.current?.focus()}
-				className={`text-primary bg-white absolute duration-300 px-2 cursor-text
-				${floatingLabel ? '-top-2 left-2 text-xs' : 'top-1/2 -translate-y-1/2 left-3'}`}
-			>
-				{placeholder}
-			</label>
-			{meta.touched && meta.error && <div className='text-red-500'>{meta.error}</div>}
+		<div>
+			<div className='relative'>
+				<input
+					ref={states.inputRef}
+					type={type || 'text'}
+					className={`${textColor} ${states.meta.touched && states.meta.error ? 'border-error' : 'border-primary'} border bg-transparent rounded-md w-full px-4 py-2 outline-none`}
+					{...states.field}
+					onChange={handlers.handleChange}
+				/>
+				<div className={`${textColor} absolute right-3 top-1/2 -translate-y-1/2 w-5`}>{icon}</div>
+				<label
+					onClick={handlers.handleFocus}
+					className={`${textColor} bg-white absolute duration-300 px-2 cursor-text
+				${states.floatingLabel ? '-top-2 left-2 text-xs' : 'top-1/2 -translate-y-1/2 left-3'}`}
+				>
+					{placeholder}
+				</label>
+			</div>
+			{states.meta.touched && states.meta.error && <div className='text-error text-xs'>{states.meta.error}</div>}
 		</div>
 	);
 };
