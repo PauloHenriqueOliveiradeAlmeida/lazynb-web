@@ -1,20 +1,17 @@
 import { Input } from '@/shared/components/input/input.component';
 import { Button } from '../../../../shared/components/button/button.component';
 import { useAuthContext } from '../../providers/contexts/auth.hook';
-import { useState } from 'react';
 import { InputPassword } from '@/shared/components/input-password/input-password.component';
 import { Link } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import { LoginSchema } from './login.schema';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 export function LoginPage() {
 	const {
 		handlers: { setAuthPageTitle },
 	} = useAuthContext();
 	setAuthPageTitle('Faça seu Login');
-
-	const [inputs, setInputs] = useState({
-		email: '',
-		password: '',
-	});
 
 	return (
 		<main className='w-96'>
@@ -25,26 +22,25 @@ export function LoginPage() {
 					Primeiro Acesso.
 				</Link>
 			</h3>
-			<form className='flex flex-col gap-16'>
-				<Input
-					placeholder='Email'
-					value={inputs.email}
-					onChange={(value) => setInputs((prevstate) => ({ ...prevstate, email: value }))}
-				/>
-				<div>
-					<InputPassword
-						placeholder='Senha'
-						value={inputs.password}
-						onChange={(value) => setInputs((prevstate) => ({ ...prevstate, password: value }))}
-					/>
-					<Link to='/forgot-password/send' className='block text-right pt-2'>
-						Esqueceu a Senha?
-					</Link>
-				</div>
-				<div className='flex justify-around items-center'>
-					<Button label='Entrar' variant='filled' fullWidth />
-				</div>
-			</form>
+			<Formik
+				initialValues={{}}
+				validationSchema={toFormikValidationSchema(LoginSchema)}
+				validateOnChange
+				onSubmit={() => {}}
+			>
+				<Form className='flex flex-col gap-16'>
+					<Input name='email' placeholder='Email' />
+					<div>
+						<InputPassword name='password' placeholder='Senha' />
+						<Link to='/forgot-password/send' className='block text-right pt-2'>
+							Esqueceu a Senha?
+						</Link>
+					</div>
+					<div className='flex justify-around items-center'>
+						<Button label='Entrar' variant='filled' fullWidth />
+					</div>
+				</Form>
+			</Formik>
 		</main>
 	);
 }
