@@ -4,18 +4,16 @@ import { useState } from 'react';
 
 interface InputPasswordProps {
 	placeholder: string;
-	value: string;
-	onChange: (value: string) => void;
+	name: string;
 }
 
-export const InputPassword = ({ placeholder, onChange, value }: InputPasswordProps) => {
+export const InputPassword = ({ placeholder, name }: InputPasswordProps) => {
 	const [hidePassword, setHidePassword] = useState(true);
 
 	return (
 		<Input
-			value={value}
 			type={hidePassword ? 'password' : 'text'}
-			onChange={onChange}
+			name={name}
 			placeholder={placeholder}
 			icon={
 				hidePassword ? (

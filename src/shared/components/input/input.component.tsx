@@ -1,16 +1,18 @@
+import { useField } from 'formik';
 import { HTMLInputTypeAttribute, ReactNode, useRef } from 'react';
 
 interface InputProps {
 	placeholder: string;
-	value: string;
-	onChange: (value: string) => void;
+	name: string;
 	type?: HTMLInputTypeAttribute;
 	icon?: ReactNode;
 }
 
-export const Input = ({ placeholder, value, onChange, type, icon }: InputProps) => {
+export const Input = ({ placeholder, name, type, icon }: InputProps) => {
 	const inputRef = useRef<HTMLInputElement>(null);
-	const floatingLabel = !!value;
+	const floatingLabel = !!inputRef.current?.value;
+
+	const [field, meta] = useField(name);
 
 	return (
 		<div className='relative'>
@@ -18,8 +20,7 @@ export const Input = ({ placeholder, value, onChange, type, icon }: InputProps) 
 				ref={inputRef}
 				type={type || 'text'}
 				className='text-primary border-primary border bg-transparent rounded-md w-full px-4 py-2 outline-none'
-				value={value}
-				onChange={(event) => onChange(event.target.value)}
+				{...field}
 			/>
 			<div className='text-primary absolute right-3 top-1/2 -translate-y-1/2 w-5'>{icon}</div>
 			<label
@@ -29,6 +30,7 @@ export const Input = ({ placeholder, value, onChange, type, icon }: InputProps) 
 			>
 				{placeholder}
 			</label>
+			{meta.touched && meta.error && <div className='text-red-500'>{meta.error}</div>}
 		</div>
 	);
 };
