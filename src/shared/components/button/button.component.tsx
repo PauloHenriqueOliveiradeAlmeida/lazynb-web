@@ -1,12 +1,14 @@
 interface ButtonProps {
 	label: string;
-	onClick?: () => void;
 	variant: 'filled' | 'outlined';
 	fullWidth?: boolean;
+	type?: HTMLButtonElement['type'];
+	onClick?: () => void;
 }
 
-export const Button = ({ label, onClick, variant, fullWidth }: ButtonProps) => (
+export const Button = ({ label, onClick, variant, fullWidth, type }: ButtonProps) => (
 	<button
+		type={type ?? 'submit'}
 		className={`px-10 py-2
 		border-primary border-2
 			rounded-md transition-all
