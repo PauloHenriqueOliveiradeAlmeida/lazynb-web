@@ -1,9 +1,11 @@
 import { Input } from '@/shared/components/input/input.component';
-import { useState } from 'react';
 import { InputPassword } from '@/shared/components/input-password/input-password.component';
 import { useAuthContext } from '@/modules/auth/providers/contexts/auth.hook';
 import { Button } from '@/shared/components/button/button.component';
 import { Link, useNavigate } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { FirstAccessRegistrySchema } from './first-access-registry.schema';
 
 export function FirstAccessRegistryPage() {
 	const {
@@ -11,34 +13,23 @@ export function FirstAccessRegistryPage() {
 	} = useAuthContext();
 	setAuthPageTitle('Primeiro Acesso');
 	const navigate = useNavigate();
-	const [inputs, setInputs] = useState({
-		email: '',
-		password: '',
-		confirmPassword: '',
-	});
 
 	return (
 		<main className='w-96'>
-			<form className='flex flex-col gap-16'>
-				<Input
-					placeholder='Email'
-					value={inputs.email}
-					onChange={(value) => setInputs((prevstate) => ({ ...prevstate, email: value }))}
-				/>
-				<InputPassword
-					placeholder='Senha'
-					value={inputs.password}
-					onChange={(value) => setInputs((prevstate) => ({ ...prevstate, password: value }))}
-				/>
-				<InputPassword
-					placeholder='Confirmar a Senha'
-					value={inputs.confirmPassword}
-					onChange={(value) => setInputs((prevstate) => ({ ...prevstate, confirmPassword: value }))}
-				/>
-				<div className='flex justify-around items-center'>
-					<Button label='Continuar' variant='filled' fullWidth onClick={() => navigate('/first-access/verify')} />
-				</div>
-			</form>
+			<Formik
+				initialValues={{}}
+				validationSchema={toFormikValidationSchema(FirstAccessRegistrySchema)}
+				onSubmit={() => {}}
+			>
+				<Form className='flex flex-col gap-16'>
+					<Input name='email' placeholder='Email' />
+					<InputPassword name='password' placeholder='Senha' />
+					<InputPassword name='confirmPassword' placeholder='Confirmar a Senha' />
+					<div className='flex justify-around items-center'>
+						<Button label='Continuar' variant='filled' fullWidth onClick={() => navigate('/first-access/verify')} />
+					</div>
+				</Form>
+			</Formik>
 			<span className='block text-center mt-8 text-lg'>
 				Já possui uma acesso?{' '}
 				<Link to='/login' className='font-bold'>
