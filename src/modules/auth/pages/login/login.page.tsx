@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { LoginSchema } from './login.schema';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { useLoginPage } from './login.hook';
 
 export function LoginPage() {
 	const {
 		handlers: { setAuthPageTitle },
 	} = useAuthContext();
+	const { handlers } = useLoginPage();
 	setAuthPageTitle('Faça seu Login');
 
 	return (
@@ -26,7 +28,7 @@ export function LoginPage() {
 				initialValues={{}}
 				validationSchema={toFormikValidationSchema(LoginSchema)}
 				validateOnChange
-				onSubmit={() => {}}
+				onSubmit={handlers.handleSubmit}
 			>
 				<Form className='flex flex-col gap-16'>
 					<Input name='email' placeholder='Email' />
