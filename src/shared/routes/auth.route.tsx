@@ -9,6 +9,8 @@ import { ForgotPasswordSendPage } from '@/modules/auth/pages/(forgot-password)/s
 import { ForgotPasswordVerifyPage } from '@/modules/auth/pages/(forgot-password)/verify/forgot-password-verify.page';
 import { ForgotPasswordRegistryPage } from '@/modules/auth/pages/(forgot-password)/registry/forgot-password-registry.page';
 import { ForgotPasswordSuccessfullyPage } from '@/modules/auth/pages/(forgot-password)/successfully/forgot-password-successfully.page';
+import { FirstAccessProvider } from '@/modules/auth/pages/(first-access)/first-access.context';
+import { ForgotPasswordProvider } from '@/modules/auth/pages/(forgot-password)/forgot-password.context';
 
 export function AuthRoute() {
 	return (
@@ -16,13 +18,31 @@ export function AuthRoute() {
 			<Routes>
 				<Route element={<AuthLayout />}>
 					<Route path='/login' element={<LoginPage />} />
-					<Route path='/first-access/registry' element={<FirstAccessRegistryPage />} />
-					<Route path='/first-access/verify' element={<FirstAccessVerifyPage />} />
-					<Route path='/first-access/successfully' element={<FirstAccessSuccessfullyPage />} />
-					<Route path='/forgot-password/send' element={<ForgotPasswordSendPage />} />
-					<Route path='/forgot-password/verify' element={<ForgotPasswordVerifyPage />} />
-					<Route path='/forgot-password/registry' element={<ForgotPasswordRegistryPage />} />
-					<Route path='/forgot-password/successfully' element={<ForgotPasswordSuccessfullyPage />} />
+					<Route
+						path='/first-access/*'
+						element={
+							<FirstAccessProvider>
+								<Routes>
+									<Route path='registry' element={<FirstAccessRegistryPage />} />
+									<Route path='verify' element={<FirstAccessVerifyPage />} />
+									<Route path='successfully' element={<FirstAccessSuccessfullyPage />} />
+								</Routes>
+							</FirstAccessProvider>
+						}
+					/>
+					<Route
+						path='/forgot-password/*'
+						element={
+							<ForgotPasswordProvider>
+								<Routes>
+									<Route path='send' element={<ForgotPasswordSendPage />} />
+									<Route path='verify' element={<ForgotPasswordVerifyPage />} />
+									<Route path='registry' element={<ForgotPasswordRegistryPage />} />
+									<Route path='successfully' element={<ForgotPasswordSuccessfullyPage />} />
+								</Routes>
+							</ForgotPasswordProvider>
+						}
+					/>
 				</Route>
 			</Routes>
 		</AuthProvider>
