@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { ForgotPasswordRegistrySchema } from './forgot-password-registry.schema';
+import { useForgotPasswordRegistryPage } from './forgot-password-registry.hook';
 
 export function ForgotPasswordRegistryPage() {
 	const {
@@ -12,20 +13,24 @@ export function ForgotPasswordRegistryPage() {
 	} = useAuthContext();
 	setAuthPageTitle('Esqueceu a senha');
 
+	const {
+		handlers: { handleSubmit },
+	} = useForgotPasswordRegistryPage();
+
 	return (
 		<main className='w-96'>
 			<h3 className='mb-24 text-2xl'>Para finalizar, informe uma nova senha</h3>
 
 			<Formik
-				initialValues={{}}
+				initialValues={{ password: '', confirmPassword: '' }}
 				validationSchema={toFormikValidationSchema(ForgotPasswordRegistrySchema)}
-				onSubmit={() => {}}
+				onSubmit={handleSubmit}
 			>
 				<Form className='flex flex-col gap-16'>
 					<InputPassword name='password' placeholder='Senha' />
 					<InputPassword name='confirmPassword' placeholder='Confirmar a Senha' />
 					<div className='flex justify-around items-center'>
-						<Button label='Continuar' variant='filled' fullWidth />
+						<Button label='Finalizar' variant='filled' fullWidth />
 					</div>
 				</Form>
 			</Formik>
