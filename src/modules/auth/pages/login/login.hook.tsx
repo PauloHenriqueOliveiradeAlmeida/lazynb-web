@@ -18,7 +18,8 @@ export function useLoginPage() {
 
 	const handleSubmit = async (values: loginSchemaValues) => {
 		const response = await request(() => authService.login(values));
-		authenticate(response?.accessToken as string);
+		if (!response) return;
+		authenticate(response.accessToken);
 		navigate('/');
 	};
 
