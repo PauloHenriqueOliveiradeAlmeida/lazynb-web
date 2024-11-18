@@ -9,6 +9,7 @@ import { ForgotPasswordSendPage } from '@/modules/auth/pages/(forgot-password)/s
 import { ForgotPasswordVerifyPage } from '@/modules/auth/pages/(forgot-password)/verify/forgot-password-verify.page';
 import { ForgotPasswordRegistryPage } from '@/modules/auth/pages/(forgot-password)/registry/forgot-password-registry.page';
 import { ForgotPasswordSuccessfullyPage } from '@/modules/auth/pages/(forgot-password)/successfully/forgot-password-successfully.page';
+import { CollaboratorRegisterPage } from '@/modules/auth/pages/collaborator/collaborator.register';
 
 export function AuthRoute() {
 	return (
@@ -21,6 +22,7 @@ export function AuthRoute() {
 					<Route path='/first-access/successfully' element={<FirstAccessSuccessfullyPage />} />
 					<Route path='/forgot-password/send' element={<ForgotPasswordSendPage />} />
 					<Route path='/forgot-password/verify' element={<ForgotPasswordVerifyPage />} />
+					<Route path='/collaborators' element={<CollaboratorRegisterPage />} />
 					<Route path='/forgot-password/registry' element={<ForgotPasswordRegistryPage />} />
 					<Route path='/forgot-password/successfully' element={<ForgotPasswordSuccessfullyPage />} />
 				</Route>
