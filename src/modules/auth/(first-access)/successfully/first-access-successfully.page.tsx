@@ -1,11 +1,11 @@
-import { useAuthContext } from '@/modules/auth/providers/contexts/auth.hook';
 import { ButtonLink } from '@/shared/components/button-link/button-link.component';
+import { useFormContext } from '@/shared/layouts/form/form.hook';
 
 export function FirstAccessSuccessfullyPage() {
 	const {
-		handlers: { setAuthPageTitle },
-	} = useAuthContext();
-	setAuthPageTitle('Primeiro Acesso');
+		handlers: { setFormPageTitle },
+	} = useFormContext();
+	setFormPageTitle('Primeiro Acesso');
 
 	return (
 		<main className='w-5/6 text-center'>

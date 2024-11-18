@@ -1,4 +1,3 @@
-import { useAuthContext } from '@/modules/auth/providers/contexts/auth.hook';
 import { Button } from '@/shared/components/button/button.component';
 import { Link } from 'react-router-dom';
 import { InputOTP } from '@/shared/components/input-otp/input-otp.component';
@@ -6,12 +5,13 @@ import { Formik, Form } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { FirstAccessVerifySchema } from './first-access-verify.schema';
 import { useFirstAccessVerifyPage } from './first-access-verify.hook';
+import { useFormContext } from '@/shared/layouts/form/form.hook';
 
 export function FirstAccessVerifyPage() {
 	const {
-		handlers: { setAuthPageTitle },
-	} = useAuthContext();
-	setAuthPageTitle('Primeiro Acesso');
+		handlers: { setFormPageTitle },
+	} = useFormContext();
+	setFormPageTitle('Primeiro Acesso');
 
 	const {
 		handlers: { handleSubmit },

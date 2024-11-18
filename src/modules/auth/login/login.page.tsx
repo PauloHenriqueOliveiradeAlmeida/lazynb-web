@@ -1,19 +1,19 @@
 import { Input } from '@/shared/components/input/input.component';
-import { Button } from '../../../../shared/components/button/button.component';
-import { useAuthContext } from '../../providers/contexts/auth.hook';
 import { InputPassword } from '@/shared/components/input-password/input-password.component';
 import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { LoginSchema } from './login.schema';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { useLoginPage } from './login.hook';
+import { Button } from '@/shared/components/button/button.component';
+import { useFormContext } from '@/shared/layouts/form/form.hook';
 
 export function LoginPage() {
 	const {
-		handlers: { setAuthPageTitle },
-	} = useAuthContext();
+		handlers: { setFormPageTitle },
+	} = useFormContext();
 	const { handlers } = useLoginPage();
-	setAuthPageTitle('Faça seu Login');
+	setFormPageTitle('Faça seu Login');
 
 	return (
 		<main className='w-96'>
@@ -25,7 +25,7 @@ export function LoginPage() {
 				</Link>
 			</h3>
 			<Formik
-				initialValues={{}}
+				initialValues={{ email: '', password: '' }}
 				validationSchema={toFormikValidationSchema(LoginSchema)}
 				validateOnChange
 				onSubmit={handlers.handleSubmit}

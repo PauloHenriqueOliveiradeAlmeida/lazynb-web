@@ -1,11 +1,11 @@
-import { useAuthContext } from '@/modules/auth/providers/contexts/auth.hook';
 import { ButtonLink } from '@/shared/components/button-link/button-link.component';
+import { useFormContext } from '@/shared/layouts/form/form.hook';
 
 export function ForgotPasswordSuccessfullyPage() {
 	const {
-		handlers: { setAuthPageTitle },
-	} = useAuthContext();
-	setAuthPageTitle('Esqueceu a senha');
+		handlers: { setFormPageTitle },
+	} = useFormContext();
+	setFormPageTitle('Esqueceu a senha');
 
 	return (
 		<main className='w-5/6 text-center'>

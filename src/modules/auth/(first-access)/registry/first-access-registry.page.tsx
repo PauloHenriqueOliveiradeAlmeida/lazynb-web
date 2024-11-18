@@ -1,18 +1,18 @@
 import { Input } from '@/shared/components/input/input.component';
 import { InputPassword } from '@/shared/components/input-password/input-password.component';
-import { useAuthContext } from '@/modules/auth/providers/contexts/auth.hook';
 import { Button } from '@/shared/components/button/button.component';
 import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { FirstAccessRegistrySchema } from './first-access-registry.schema';
 import { useFirstAccessRegistryPage } from './first-access-registry.hook';
+import { useFormContext } from '@/shared/layouts/form/form.hook';
 
 export function FirstAccessRegistryPage() {
 	const {
-		handlers: { setAuthPageTitle },
-	} = useAuthContext();
-	setAuthPageTitle('Primeiro Acesso');
+		handlers: { setFormPageTitle },
+	} = useFormContext();
+	setFormPageTitle('Primeiro Acesso');
 
 	const {
 		handlers: { handleSubmit },
