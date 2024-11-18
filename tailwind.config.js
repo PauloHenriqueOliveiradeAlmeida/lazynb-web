@@ -9,6 +9,7 @@ export default {
 			secondary: '#121212',
 			shadow: '#121212E6',
 			white: '#F1F1F1',
+			whiteHighlight: '#EAEBF7',
 			dark: '#121212',
 			error: '#d80032',
 		},
