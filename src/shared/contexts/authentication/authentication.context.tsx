@@ -10,6 +10,7 @@ export const AuthenticationContext = createContext({} as IAuthenticationContext)
 export function AuthenticationProvider({ children }: AuthenticationProviderProps) {
 	const cookieService = useMemo(() => new CookieService(), []);
 	const [isAuthenticated, setIsAuthenticated] = useState(!!cookieService.get('access_token'));
+
 	const authenticate = useCallback(
 		(accessToken: string) => {
 			cookieService.create('access_token', accessToken);
