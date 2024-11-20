@@ -1,22 +1,22 @@
-import { AuthProvider } from '@/modules/auth/providers/contexts/auth.context';
-import { LoginPage } from '@/modules/auth/pages/login/login.page';
 import { Route, Routes } from 'react-router-dom';
-import { AuthLayout } from '@/modules/auth/pages/auth.layout';
-import { FirstAccessRegistryPage } from '@/modules/auth/pages/(first-access)/registry/first-access-registry.page';
-import { FirstAccessVerifyPage } from '@/modules/auth/pages/(first-access)/verify/first-access-verify.page';
-import { FirstAccessSuccessfullyPage } from '@/modules/auth/pages/(first-access)/successfully/first-access-successfully.page';
-import { ForgotPasswordSendPage } from '@/modules/auth/pages/(forgot-password)/send/forgot-password-send.page';
-import { ForgotPasswordVerifyPage } from '@/modules/auth/pages/(forgot-password)/verify/forgot-password-verify.page';
-import { ForgotPasswordRegistryPage } from '@/modules/auth/pages/(forgot-password)/registry/forgot-password-registry.page';
-import { ForgotPasswordSuccessfullyPage } from '@/modules/auth/pages/(forgot-password)/successfully/forgot-password-successfully.page';
-import { FirstAccessProvider } from '@/modules/auth/pages/(first-access)/first-access.context';
-import { ForgotPasswordProvider } from '@/modules/auth/pages/(forgot-password)/forgot-password.context';
+import { FormProvider } from '../layouts/form/form.context';
+import { FormLayout } from '../layouts/form/form.layout';
+import { LoginPage } from '@/modules/auth/login/login.page';
+import { FirstAccessProvider } from '@/modules/auth/(first-access)/first-access.context';
+import { FirstAccessRegistryPage } from '@/modules/auth/(first-access)/registry/first-access-registry.page';
+import { FirstAccessVerifyPage } from '@/modules/auth/(first-access)/verify/first-access-verify.page';
+import { FirstAccessSuccessfullyPage } from '@/modules/auth/(first-access)/successfully/first-access-successfully.page';
+import { ForgotPasswordProvider } from '@/modules/auth/(forgot-password)/forgot-password.context';
+import { ForgotPasswordSendPage } from '@/modules/auth/(forgot-password)/send/forgot-password-send.page';
+import { ForgotPasswordVerifyPage } from '@/modules/auth/(forgot-password)/verify/forgot-password-verify.page';
+import { ForgotPasswordRegistryPage } from '@/modules/auth/(forgot-password)/registry/forgot-password-registry.page';
+import { ForgotPasswordSuccessfullyPage } from '@/modules/auth/(forgot-password)/successfully/forgot-password-successfully.page';
 
 export function AuthRoute() {
 	return (
-		<AuthProvider>
+		<FormProvider>
 			<Routes>
-				<Route element={<AuthLayout />}>
+				<Route element={<FormLayout />}>
 					<Route path='/login' element={<LoginPage />} />
 					<Route
 						path='/first-access/*'
@@ -45,6 +45,6 @@ export function AuthRoute() {
 					/>
 				</Route>
 			</Routes>
-		</AuthProvider>
+		</FormProvider>
 	);
 }
