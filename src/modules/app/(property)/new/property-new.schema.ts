@@ -1,0 +1,42 @@
+import { UfEnum } from '@/shared/enums/uf.enum';
+import { z as Zod } from 'zod';
+
+export const PropertyNewSchema = Zod.object({
+	name: Zod.string({ message: 'Deve ser um texto válido' })
+		.min(3, { message: 'Deve ter pelo menos 3 caracteres' })
+		.max(100, {
+			message: 'Deve ter no máximo 100 caracteres',
+		}),
+	cep: Zod.string({ message: 'Deve ser um texto válido' })
+		.min(8, { message: 'Deve ter pelo menos 8 caracteres' })
+		.max(9, {
+			message: 'Deve ter no máximo 9 caracteres',
+		}),
+	neighborhood: Zod.string({ message: 'Deve ser um texto válido' })
+		.min(3, { message: 'Deve ter pelo menos 3 caracteres' })
+		.max(100, {
+			message: 'Deve ter no máximo 100 caracteres',
+		}),
+	address_number: Zod.number({ message: 'Deve ser um número' }).max(10, {
+		message: 'Deve ter no máximo 10 caracteres',
+	}),
+	complement: Zod.string({ message: 'Deve ser um texto válido' })
+		.min(3, { message: 'Deve ter pelo menos 3 caracteres' })
+		.max(100, {
+			message: 'Deve ter no máximo 100 caracteres',
+		})
+		.optional(),
+	city: Zod.string({ message: 'Deve ser um texto válido' })
+		.min(1, { message: 'Deve ter pelo menos 1 caractere' })
+		.max(100, {
+			message: 'Deve ter no máximo 100 caracteres',
+		}),
+	uf: Zod.nativeEnum(UfEnum, { message: 'Deve ser um estado válida' }),
+	description: Zod.string({ message: 'Deve ser um texto válido' })
+		.min(3, { message: 'Deve ter pelo menos 3 caracteres' })
+		.max(300, {
+			message: 'Deve ter no máximo 300 caracteres',
+		}),
+	clientid: Zod.number({ message: 'Deve ser um número válido' }),
+	amenities: Zod.array(Zod.number({ message: 'Deve ser um número' })),
+});

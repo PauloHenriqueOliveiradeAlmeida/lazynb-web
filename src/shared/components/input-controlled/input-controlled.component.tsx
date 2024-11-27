@@ -17,6 +17,7 @@ export const InputControlled = ({ placeholder, value, onChange, type, icon }: In
 				type={type || 'text'}
 				className={`border-primary text-primary border bg-white rounded-md w-full px-4 py-2 outline-none`}
 				onChange={handlers.handleChange}
+				ref={states.inputRef}
 				value={value}
 			/>
 			<div className={`text-primary absolute right-3 top-1/2 -translate-y-1/2 w-5`}>{icon}</div>
