@@ -30,7 +30,9 @@ export function PropertyReportPage() {
 						<th className='p-4'>Nome</th>
 						<th className='p-4'>Proprietário</th>
 						<th className='p-4'>CEP</th>
-						<th className='p-4'>Endereço</th>
+						<th className='p-4'>Cidade - UF</th>
+						<th className='p-4'>Bairro - Número</th>
+						<th className='p-4'>Ações</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -51,7 +53,10 @@ export function PropertyReportPage() {
 							<td className='p-4'>{property.client_name}</td>
 							<td className='p-4'>{cepMask(property.cep)}</td>
 							<td className='p-4'>
-								{property.city} - {property.uf?.toUpperCase()} | {property.neighborhood} - {property.address_number}
+								{property.city} - {property.uf?.toUpperCase()}
+							</td>
+							<td className='p-4'>
+								{property.neighborhood} - {property.address_number}
 							</td>
 							<td className='p-4'>
 								<div className='flex gap-4 text-sm'>

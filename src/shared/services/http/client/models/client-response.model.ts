@@ -3,7 +3,7 @@ export interface IBaseResponseModel {
 }
 
 export interface IGetClientResponseModel {
-	id: string;
+	id: number;
 	name: string;
 	email: string;
 	phone_number: string;

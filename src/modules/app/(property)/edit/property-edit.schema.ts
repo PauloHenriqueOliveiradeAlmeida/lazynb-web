@@ -1,7 +1,7 @@
 import { UfEnum } from '@/shared/enums/uf.enum';
 import { z as Zod } from 'zod';
 
-export const PropertyNewSchema = Zod.object({
+export const PropertyEditSchema = Zod.object({
 	name: Zod.string({ message: 'Deve ser um texto válido' })
 		.min(3, { message: 'Deve ter pelo menos 3 caracteres' })
 		.max(100, {

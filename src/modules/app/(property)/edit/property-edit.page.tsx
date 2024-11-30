@@ -1,43 +1,45 @@
 import { useFormContext } from '@/shared/layouts/form/form.hook';
-import { usePropertyNew } from './property-new.hook';
+import { usePropertyEdit } from './property-edit.hook';
 import { Formik, Form } from 'formik';
 import { Input } from '@/shared/components/input/input.component';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
-import { PropertyNewSchema } from './property-new.schema';
+import { PropertyEditSchema } from './property-edit.schema';
 import { UfEnum } from '@/shared/enums/uf.enum';
 import { cepMask } from '@/shared/utils/masks/cep.mask';
 import { ButtonLink } from '@/shared/components/button-link/button-link.component';
 import { Button } from '@/shared/components/button/button.component';
 import Select from 'react-select';
 
-export function PropertyNewPage() {
+export function PropertyEditPage() {
   const {
     handlers: { setFormPageTitle },
   } = useFormContext();
-  setFormPageTitle('Cadastrar propriedade');
+  setFormPageTitle('Editar propriedade');
 
   const {
+		states: { property },
     handlers: { handleSubmit },
     amenitiesOptions, clientsOptions
-  } = usePropertyNew();
+  } = usePropertyEdit();
 
   return (
     <main className='w-[80%]'>
       <Formik
         initialValues={{
-          name: '',
-          description: '',
-          cep: '',
-          neighborhood: '',
-          address_number: 0,
-          complement: '',
-          city: '',
-          uf: UfEnum.SP,
-          clientid: 0,
-          amenities: [] as number[],
+          name: property?.name || '',
+          description: property?.description || '',
+          cep: property?.cep || '',
+          neighborhood: property?.neighborhood || '',
+          address_number: property?.address_number || 0,
+          complement: property?.complement || '',
+          city: property?.city || '',
+          uf: property?.uf || UfEnum.SP,
+          clientid: property?.clientid || 0,
+          amenities: property?.amenities || [] as number[],
         }}
-        validationSchema={toFormikValidationSchema(PropertyNewSchema)}
+        validationSchema={toFormikValidationSchema(PropertyEditSchema)}
         validateOnChange
+				enableReinitialize
         onSubmit={handleSubmit}
       >
         {({ values, setFieldValue }) => (
@@ -59,7 +61,6 @@ export function PropertyNewPage() {
                 className='w-1/5'
               />
             </div>
-
             <Select
               className='border-primary border bg-transparent rounded-md w-full outline-none'
               name="amenities"
@@ -76,7 +77,6 @@ export function PropertyNewPage() {
                 );
               }}
             />
-
             <Select
               name="clientid"
               options={clientsOptions}
@@ -86,7 +86,6 @@ export function PropertyNewPage() {
                 setFieldValue('clientid', selectedOption ? selectedOption.value : 0);
               }}
             />
-
             <div className='flex justify-around items-center gap-4'>
               <ButtonLink label='Voltar' variant='outlined' fullWidth to='/property/report' />
               <Button label='Cadastrar' variant='filled' fullWidth />

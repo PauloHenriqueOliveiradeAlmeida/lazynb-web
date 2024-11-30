@@ -9,6 +9,7 @@ import { CollaboratorNewPage } from '@/modules/app/(collaborator)/new/collaborat
 import { CollaboratorEditPage } from '@/modules/app/(collaborator)/edit/collaborator-edit.page';
 import { PropertyReportPage } from '@/modules/app/(property)/report/property-report.page';
 import { PropertyNewPage } from '@/modules/app/(property)/new/property-new.page';
+import { PropertyEditPage } from '@/modules/app/(property)/edit/property-edit.page';
 
 export function AppRoute() {
 	return (
@@ -28,6 +29,7 @@ export function AppRoute() {
 								<Route path='/collaborator/new' element={<CollaboratorNewPage />} />
 								<Route path='/collaborator/:id/edit' element={<CollaboratorEditPage />} />
 								<Route path='/property/new' element={<PropertyNewPage />} />
+								<Route path='/property/:id/edit' element={<PropertyEditPage />} />
 							</Route>
 						</Routes>
 					</FormProvider>

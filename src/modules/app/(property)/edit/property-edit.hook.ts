@@ -1,33 +1,37 @@
 import { PropertyService } from '@/shared/services/http/property/property.service';
 import { AmenityService } from '@/shared/services/http/amenity/amenity.service';
 import { ClientService } from '@/shared/services/http/client/client.service';
-import { PropertyNewSchema } from './property-new.schema';
+import { PropertyEditSchema } from './property-edit.schema';
 import { useHttp } from '@/shared/services/http/http.hook';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { unmask } from '@/shared/utils/masks/unmask';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import { IGetPropertyResponseModel } from '@/shared/services/http/property/models/property-response.model';
 
-type propertyNewSchemaValues = typeof PropertyNewSchema._type;
 
-export function usePropertyNew() {
+type propertyEditSchemaValues = typeof PropertyEditSchema._type;
+
+export function usePropertyEdit() {
+	const [property, setProperty] = useState<IGetPropertyResponseModel>();
 	const {
 		handlers: { request },
 	} = useHttp();
-	const propertyService = new PropertyService();
-	const amenityService = new AmenityService();
-	const clientService = new ClientService();
+	const propertyService = useMemo(() => new PropertyService(), []);
+
+	const amenityService = useMemo(() => new AmenityService(), []);
+	const clientService = useMemo(() => new ClientService(), []);
 
 
 	const navigate = useNavigate();
+	const params = useParams();
 	const [amenitiesOptions, setAmenitiesOptions] = useState<{ value: number; label: string }[]>([]);
 	const [clientsOptions, setClientsOptions] = useState<{ value: number; label: string }[]>([]);
 
 	useEffect(() => {
 		const fetchAmenities = async () => {
 			try {
-				const response = await request(() => amenityService.getAll());
+				const response = await request(() => amenityService.get());
 				if (response) {
 					setAmenitiesOptions(
 						response.map((amenity: { id: number; name: string }) => ({
@@ -63,14 +67,30 @@ export function usePropertyNew() {
 	}, []);
 
 
-	const handleSubmit = async (values: propertyNewSchemaValues) => {
-		console.log(values.clientid);
-		const response = await request(() => propertyService.create({ ...values, cep: unmask(values.cep) }));
+	const handleSubmit = async (values: propertyEditSchemaValues) => {
+		const response = await request(() =>
+			propertyService.update(params.id as string, {
+				...values,
+				cep: unmask(values.cep)
+			})
+		);
 		if (!response) return;
 
 		toast.success(response.message);
 		navigate('/property/report');
 	};
 
-	return { handlers: { handleSubmit }, amenitiesOptions, clientsOptions };
+	const getProperty = useCallback(async () => {
+		const response = await request(() => propertyService.get(params.id as string));
+		if (!response) return;
+		console.log(response);
+		setProperty(response);
+	}, [params.id, request, propertyService]);
+
+	useEffect(() => {
+		if (!params.id) navigate('/property/report');
+		getProperty();
+	}, [params.id, navigate, getProperty]);
+
+	return { states: { property }, handlers: { handleSubmit }, amenitiesOptions, clientsOptions };
 }

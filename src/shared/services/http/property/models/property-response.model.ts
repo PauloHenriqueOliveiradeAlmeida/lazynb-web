@@ -14,8 +14,6 @@ export interface IGetPropertyResponseModel {
 	city: string;
 	uf: UfEnum;
 	description: string;
-	clientid: string;
-	cpf: string;
-	client_name: string;
+	clientid: number;
 	amenities: number[];
 }
