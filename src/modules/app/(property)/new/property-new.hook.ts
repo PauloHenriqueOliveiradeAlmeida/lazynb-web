@@ -27,7 +27,7 @@ export function usePropertyNew() {
 	useEffect(() => {
 		const fetchAmenities = async () => {
 			try {
-				const response = await request(() => amenityService.getAll());
+				const response = await request(() => amenityService.get());
 				if (response) {
 					setAmenitiesOptions(
 						response.map((amenity: { id: number; name: string }) => ({

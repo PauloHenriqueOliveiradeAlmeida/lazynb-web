@@ -9,7 +9,7 @@ export const PropertyNewSchema = Zod.object({
 		}),
 	cep: Zod.string({ message: 'Deve ser um texto válido' })
 		.min(8, { message: 'Deve ter pelo menos 8 caracteres' })
-		.max(9, {
+		.max(10, {
 			message: 'Deve ter no máximo 9 caracteres',
 		}),
 	neighborhood: Zod.string({ message: 'Deve ser um texto válido' })
