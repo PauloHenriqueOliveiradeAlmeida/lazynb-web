@@ -11,13 +11,16 @@ import { ForgotPasswordSendPage } from '@/modules/auth/(forgot-password)/send/fo
 import { ForgotPasswordVerifyPage } from '@/modules/auth/(forgot-password)/verify/forgot-password-verify.page';
 import { ForgotPasswordRegistryPage } from '@/modules/auth/(forgot-password)/registry/forgot-password-registry.page';
 import { ForgotPasswordSuccessfullyPage } from '@/modules/auth/(forgot-password)/successfully/forgot-password-successfully.page';
+import { NotFoundPage } from '@/modules/not-found.page';
 
 export function AuthRoute() {
 	return (
 		<FormProvider>
 			<Routes>
+				<Route path='*' element={<NotFoundPage />} />
 				<Route element={<FormLayout />}>
-					<Route path='/login' element={<LoginPage />} />
+					<Route index element={<LoginPage />} />
+					<Route path='login' element={<LoginPage />} />
 					<Route
 						path='/first-access/*'
 						element={
