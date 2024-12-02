@@ -6,7 +6,7 @@ export class AmenityService {
 	async create(data: ICreateAmenityRequestModel) {
 		return http.post<IBaseResponseModel>('/amenities', data);
 	}
-	async get() {
+	async getAll() {
 		return http.get<IGetAmenityResponseModel[]>('/amenities');
 	}
 }

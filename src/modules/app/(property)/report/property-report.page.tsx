@@ -58,7 +58,7 @@ export function PropertyReportPage() {
 							<td className='p-4'>
 								{property.neighborhood} - {property.address_number}
 							</td>
-							<td className='p-4'>
+							<td className='p-4 w-[8%]'>
 								<div className='flex gap-4 text-sm'>
 									<PencilIcon className='cursor-pointer' onClick={() => navigate(`/property/${property.id}/edit`)} />
 									<TrashIcon className='cursor-pointer' onClick={() => handleDelete(property.id)} />

@@ -8,71 +8,62 @@ import { unmask } from '@/shared/utils/masks/unmask';
 import { toast } from 'react-toastify';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { IGetPropertyResponseModel } from '@/shared/services/http/property/models/property-response.model';
-
+import { FormikErrors } from 'formik';
 
 type propertyEditSchemaValues = typeof PropertyEditSchema._type;
 
 export function usePropertyEdit() {
 	const [property, setProperty] = useState<IGetPropertyResponseModel>();
-	const {
-		handlers: { request },
-	} = useHttp();
-	const propertyService = useMemo(() => new PropertyService(), []);
-
-	const amenityService = useMemo(() => new AmenityService(), []);
-	const clientService = useMemo(() => new ClientService(), []);
-
-
-	const navigate = useNavigate();
-	const params = useParams();
 	const [amenitiesOptions, setAmenitiesOptions] = useState<{ value: number; label: string }[]>([]);
 	const [clientsOptions, setClientsOptions] = useState<{ value: number; label: string }[]>([]);
 
+	const {
+		handlers: { request },
+	} = useHttp();
+
+	const propertyService = useMemo(() => new PropertyService(), []);
+	const amenityService = new AmenityService();
+	const clientService = new ClientService();
+
+	const navigate = useNavigate();
+	const params = useParams();
+
 	useEffect(() => {
 		const fetchAmenities = async () => {
-			try {
-				const response = await request(() => amenityService.get());
-				if (response) {
-					setAmenitiesOptions(
-						response.map((amenity: { id: number; name: string }) => ({
-							value: amenity.id,
-							label: amenity.name,
-						}))
-					);
-				}
-			} catch (error) {
-				console.error('Erro ao buscar amenities:', error);
+			const response = await request(amenityService.getAll);
+			if (response) {
+				setAmenitiesOptions(
+					response.map((amenity: { id: number; name: string }) => ({
+						value: amenity.id,
+						label: amenity.name,
+					})),
+				);
 			}
 		};
 		fetchAmenities();
-	}, []);
+	}, [request, amenityService.getAll]);
 
 	useEffect(() => {
 		const fetchClients = async () => {
-			try {
-				const response = await request(() => clientService.getAll());
-				if (response) {
-					setClientsOptions(
-						response.map((client: { id: number; name: string }) => ({
-							value: client.id,
-							label: client.name,
-						}))
-					);
-				}
-			} catch (error) {
-				console.error('Erro ao buscar clientes:', error);
+			const response = await request(clientService.getAll);
+			if (response) {
+				setClientsOptions(
+					response.map((client: { id: number; name: string }) => ({
+						value: client.id,
+						label: client.name,
+					})),
+				);
 			}
 		};
 		fetchClients();
-	}, []);
-
+	}, [request, clientService.getAll]);
 
 	const handleSubmit = async (values: propertyEditSchemaValues) => {
 		const response = await request(() =>
 			propertyService.update(params.id as string, {
 				...values,
-				cep: unmask(values.cep)
-			})
+				cep: unmask(values.cep),
+			}),
 		);
 		if (!response) return;
 
@@ -80,10 +71,24 @@ export function usePropertyEdit() {
 		navigate('/property/report');
 	};
 
+	const handleGetCep = async (
+		cep: string,
+		setValues: (
+			key: keyof propertyEditSchemaValues,
+			value: string,
+		) => Promise<void | FormikErrors<propertyEditSchemaValues>>,
+	) => {
+		if (!cep) return;
+		const response = await request(() => propertyService.getAddressByCep(cep));
+		if (!response) return;
+		setValues('neighborhood', response.neighborhood);
+		setValues('city', response.city);
+		setValues('uf', response.uf);
+	};
+
 	const getProperty = useCallback(async () => {
 		const response = await request(() => propertyService.get(params.id as string));
 		if (!response) return;
-		console.log(response);
 		setProperty(response);
 	}, [params.id, request, propertyService]);
 
@@ -92,5 +97,5 @@ export function usePropertyEdit() {
 		getProperty();
 	}, [params.id, navigate, getProperty]);
 
-	return { states: { property }, handlers: { handleSubmit }, amenitiesOptions, clientsOptions };
+	return { states: { property, amenitiesOptions, clientsOptions }, handlers: { handleSubmit, handleGetCep } };
 }
