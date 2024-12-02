@@ -13,8 +13,8 @@ export function CollaboratorReportPage() {
 	} = useCollaboratorReport();
 
 	return (
-		<main className="flex flex-col justify-center items-center flex-1 h-screen gap-10 bg-white p-6">
-			<h1 className="text-2xl font-bold text-secondary">Colaboradores Cadastrados</h1>
+		<main className='flex flex-col w-full h-screen justify-center items-center gap-10 bg-white p-24'>
+			<h1 className='text-2xl font-bold'>Colaboradores Cadastrados</h1>
 
 			<div className="bg-white w-full max-w-5xl p-8 rounded-md shadow-lg">
 				<InputControlled

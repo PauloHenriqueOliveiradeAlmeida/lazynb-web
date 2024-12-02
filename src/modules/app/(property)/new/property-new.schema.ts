@@ -1,4 +1,5 @@
 import { UfEnum } from '@/shared/enums/uf.enum';
+import { unmask } from '@/shared/utils/masks/unmask';
 import { z as Zod } from 'zod';
 
 export const PropertyNewSchema = Zod.object({
@@ -8,10 +9,10 @@ export const PropertyNewSchema = Zod.object({
 			message: 'Deve ter no máximo 100 caracteres',
 		}),
 	cep: Zod.string({ message: 'Deve ser um texto válido' })
-		.min(8, { message: 'Deve ter pelo menos 8 caracteres' })
-		.max(10, {
-			message: 'Deve ter no máximo 9 caracteres',
-		}),
+		.length(10, {
+			message: 'Deve ter no máximo 8 caracteres',
+		})
+		.transform(unmask),
 	neighborhood: Zod.string({ message: 'Deve ser um texto válido' })
 		.min(3, { message: 'Deve ter pelo menos 3 caracteres' })
 		.max(100, {
@@ -35,6 +36,6 @@ export const PropertyNewSchema = Zod.object({
 		.max(300, {
 			message: 'Deve ter no máximo 300 caracteres',
 		}),
-	clientid: Zod.number({ message: 'Deve ser um número válido' }),
-	amenities: Zod.array(Zod.number({ message: 'Deve ser um número válido.' })),
+	clientid: Zod.number({ message: 'Deve ser um número válido' }).min(1, { message: 'Deve ter pelo menos 1 caractere' }),
+	amenities: Zod.array(Zod.number({ message: 'Deve ser um número válido.' })).optional(),
 });
