@@ -29,7 +29,7 @@ export function useClientReport() {
 		);
 	};
 
-	const handleDelete = async (id: string) => {
+	const handleDelete = async (id: number) => {
 		const response = await request(() => clientService.delete(id));
 		if (!response) return;
 		toast.success(response.message);

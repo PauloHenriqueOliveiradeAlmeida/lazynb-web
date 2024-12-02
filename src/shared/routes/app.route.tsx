@@ -7,12 +7,16 @@ import { ClientEditPage } from '@/modules/app/(client)/edit/client-edit.page';
 import { CollaboratorReportPage } from '@/modules/app/(collaborator)/report/collaborator-report.page';
 import { CollaboratorNewPage } from '@/modules/app/(collaborator)/new/collaborator-new.page';
 import { CollaboratorEditPage } from '@/modules/app/(collaborator)/edit/collaborator-edit.page';
+import { PropertyReportPage } from '@/modules/app/(property)/report/property-report.page';
+import { PropertyNewPage } from '@/modules/app/(property)/new/property-new.page';
+import { PropertyEditPage } from '@/modules/app/(property)/edit/property-edit.page';
 
 export function AppRoute() {
 	return (
 		<Routes>
 			<Route path='/client/report' element={<ClientReportPage />} />
 			<Route path='/collaborator/report' element={<CollaboratorReportPage />} />
+			<Route path='/property/report' element={<PropertyReportPage />} />
 
 			<Route
 				path='*'
@@ -24,6 +28,8 @@ export function AppRoute() {
 								<Route path='/client/:id/edit' element={<ClientEditPage />} />
 								<Route path='/collaborator/new' element={<CollaboratorNewPage />} />
 								<Route path='/collaborator/:id/edit' element={<CollaboratorEditPage />} />
+								<Route path='/property/new' element={<PropertyNewPage />} />
+								<Route path='/property/:id/edit' element={<PropertyEditPage />} />
 							</Route>
 						</Routes>
 					</FormProvider>

@@ -11,7 +11,7 @@ export class ClientService {
 		return http.put<IBaseResponseModel>(`/clients/${id}`, data);
 	}
 
-	async delete(id: string) {
+	async delete(id: number) {
 		return http.delete<IBaseResponseModel>(`/clients/${id}`);
 	}
 

@@ -14,7 +14,7 @@ export function CollaboratorReportPage() {
 
 	return (
 		<main className='flex flex-col w-full h-screen justify-center items-center gap-10 bg-white p-24'>
-			<h1 className='text-2xl font-bold'>Collaboradores Cadastrados</h1>
+			<h1 className='text-2xl font-bold'>Colaboradores Cadastrados</h1>
 
 			<div className='bg-white w-[95%] p-8 rounded-md shadow-lg'>
 				<InputControlled
