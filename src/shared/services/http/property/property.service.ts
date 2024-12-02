@@ -1,6 +1,10 @@
 import { http } from '../http.setup';
 import { ICreatePropertyRequestModel } from './models/property-request.model';
-import { IBaseResponseModel, IGetPropertyResponseModel } from './models/property-response.model';
+import {
+	IBaseResponseModel,
+	IGetAddressByCepResponseModel,
+	IGetPropertyResponseModel,
+} from './models/property-response.model';
 
 export class PropertyService {
 	async create(data: ICreatePropertyRequestModel) {
@@ -21,5 +25,9 @@ export class PropertyService {
 
 	async getAll() {
 		return http.get<IGetPropertyResponseModel[]>('/properties');
+	}
+
+	async getAddressByCep(cep: string) {
+		return http.get<IGetAddressByCepResponseModel>(`/properties/${cep}/address`);
 	}
 }

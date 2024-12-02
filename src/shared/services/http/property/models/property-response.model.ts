@@ -15,5 +15,13 @@ export interface IGetPropertyResponseModel {
 	uf: UfEnum;
 	description: string;
 	clientid: number;
+	client_name: string;
 	amenities: number[];
+}
+
+export interface IGetAddressByCepResponseModel {
+	cep: string;
+	neighborhood: string;
+	city: string;
+	uf: string;
 }
