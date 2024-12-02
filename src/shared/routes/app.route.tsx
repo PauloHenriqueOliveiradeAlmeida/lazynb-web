@@ -10,18 +10,20 @@ import { CollaboratorEditPage } from '@/modules/app/(collaborator)/edit/collabor
 import { PropertyReportPage } from '@/modules/app/(property)/report/property-report.page';
 import { PropertyNewPage } from '@/modules/app/(property)/new/property-new.page';
 import { PropertyEditPage } from '@/modules/app/(property)/edit/property-edit.page';
-import { AppLayout } from '@/modules/app/(appLayout)/app-layout.page';
 import { HomePage } from '@/modules/app/(home)/home.page';
+import { AppLayout } from '@/modules/app/app-layout.page';
+import { NotFoundPage } from '@/modules/not-found.page';
 
 export function AppRoute() {
-  return (
-    <Routes>
-      <Route path="/" element={<AppLayout />}>
+	return (
+		<Routes>
+			<Route path='*' element={<NotFoundPage />} />
+			<Route path='/' element={<AppLayout />}>
 				<Route index element={<HomePage />} />
-        <Route path="client/report" element={<ClientReportPage />} />
-        <Route path="collaborator/report" element={<CollaboratorReportPage />} />
-        <Route path="property/report" element={<PropertyReportPage />} />
-      </Route>
+				<Route path='client/report' element={<ClientReportPage />} />
+				<Route path='collaborator/report' element={<CollaboratorReportPage />} />
+				<Route path='property/report' element={<PropertyReportPage />} />
+			</Route>
 
 			<Route
 				path='*'
@@ -40,6 +42,6 @@ export function AppRoute() {
 					</FormProvider>
 				}
 			/>
-    </Routes>
-  );
+		</Routes>
+	);
 }

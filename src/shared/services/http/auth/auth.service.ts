@@ -1,3 +1,4 @@
+import { IGetCollaboratorResponseModel } from '../collaborator/models/collaborator-response.model';
 import { http } from '../http.setup';
 import { IFirstAccessRequestModel, ILoginRequestModel, IResetPasswordRequestModel } from './models/auth-request.model';
 import { IBaseResponseModel, ILoginResponseModel } from './models/auth-response.model';
@@ -25,5 +26,9 @@ export class AuthService {
 
 	async resetPassword(data: IResetPasswordRequestModel) {
 		return await http.post<IBaseResponseModel>('/auth/reset-password', data);
+	}
+
+	async details() {
+		return await http.get<IGetCollaboratorResponseModel>('/auth/details');
 	}
 }
