@@ -12,50 +12,53 @@ export function PropertyReportPage() {
 	} = usePropertyReport();
 
 	return (
-		<main className='flex flex-col w-full h-screen justify-center items-center gap-10 bg-white p-24'>
-			<h1 className='text-2xl font-bold'>Propriedades Cadastradas</h1>
-
-			<div className='bg-white w-3/5 p-8 rounded-md shadow-lg'>
+		<main className="flex flex-col justify-center items-center flex-1 h-screen gap-10 bg-white p-6">
+			<h1 className="text-2xl font-bold text-secondary">Propriedades Cadastradas</h1>
+			<div className="bg-white w-full max-w-5xl p-8 rounded-md shadow-lg">
 				<InputControlled
 					value={search}
 					onChange={handleSearch}
-					placeholder='Pesquisar por nome'
+					placeholder="Pesquisar por nome"
 					icon={<MagnifyingGlassIcon />}
 				/>
 			</div>
 
-			<table className='w-3/5 text-center shadow-lg rounded-md overflow-hidden'>
-				<thead className='bg-primary'>
-					<tr className='text-white'>
-						<th className='p-4'>Nome</th>
-						<th className='p-4'>Proprietário</th>
-						<th className='p-4'>CEP</th>
-						<th className='p-4'>Cidade - UF</th>
-						<th className='p-4'>Bairro - Número</th>
-						<th className='p-4'>Ações</th>
-						<th></th>
+			<table className="w-full max-w-5xl text-center shadow-lg rounded-md overflow-hidden">
+				<thead className="bg-primary">
+					<tr className="text-white">
+						<th className="p-4">Nome</th>
+						<th className="p-4">Proprietário</th>
+						<th className="p-4">CEP</th>
+						<th className="p-4">Cidade - UF</th>
+						<th className="p-4">Bairro - Número</th>
+						<th className="p-4">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
 					{filteredProperties.length === 0 && (
-						<tr className='text-center text-xl font-bold'>
-							<td colSpan={4} className='p-4'>
-								<div className='flex flex-col gap-4 items-center'>
+						<tr className="text-center text-xl font-bold">
+							<td colSpan={6} className="p-4">
+								<div className="flex flex-col gap-4 items-center">
 									Sem propriedades cadastradas
-									<ButtonLink label='Cadastrar nova propriedade' variant='filled' to='/property/new' className='w-80' />
+									<ButtonLink
+										label="Cadastrar nova propriedade"
+										variant="filled"
+										to="/property/new"
+										className="w-80"
+									/>
 								</div>
 							</td>
 						</tr>
 					)}
 					{filteredProperties.map((property) => (
-						<tr className='border border-primary'>
-							<td className='p-4'>{property.name}</td>
-							<td className='p-4'>{property.client_name}</td>
-							<td className='p-4'>{cepMask(property.cep)}</td>
-							<td className='p-4'>
+						<tr key={property.id} className="border border-primary">
+							<td className="p-4">{property.name}</td>
+							<td className="p-4">{property.client_name}</td>
+							<td className="p-4">{cepMask(property.cep)}</td>
+							<td className="p-4">
 								{property.city} - {property.uf?.toUpperCase()}
 							</td>
-							<td className='p-4'>
+							<td className="p-4">
 								{property.neighborhood} - {property.address_number}
 							</td>
 							<td className='p-4 w-[8%]'>
@@ -68,7 +71,7 @@ export function PropertyReportPage() {
 					))}
 				</tbody>
 			</table>
-			<ButtonBubble to='/property/new' icon={<PlusIcon />} className='fixed bottom-10 right-10' />
+			<ButtonBubble to="/property/new" icon={<PlusIcon />} className="fixed bottom-10 right-10" />
 		</main>
 	);
 }
