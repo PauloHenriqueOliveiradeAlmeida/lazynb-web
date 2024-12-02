@@ -1,5 +1,5 @@
 import { useField } from 'formik';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FocusEvent, useEffect, useRef, useState } from 'react';
 
 export function useInput(inputName: string, maxLength?: number) {
 	const [floatingLabel, setFloatingLabel] = useState(false);
@@ -16,12 +16,17 @@ export function useInput(inputName: string, maxLength?: number) {
 		inputRef.current?.focus();
 	};
 
+	const handleBlur = (event: FocusEvent<HTMLInputElement, Element>, onBlur: () => void) => {
+		onBlur();
+		field.onBlur(event);
+	};
+
 	useEffect(() => {
 		if (meta.value) setFloatingLabel(true);
 	}, [meta.value]);
 
 	return {
 		states: { floatingLabel, inputRef, field, meta },
-		handlers: { handleChange, handleFocus },
+		handlers: { handleChange, handleFocus, handleBlur },
 	};
 }
