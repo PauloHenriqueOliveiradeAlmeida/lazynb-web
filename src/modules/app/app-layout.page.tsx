@@ -19,7 +19,7 @@ export function AppLayout() {
 					<div className='flex items-center'>
 						<div className='rounded-md shadow py-2 px-4 mr-4'>
 							<div className='flex flex-row gap-4'>
-								<UserIcon className='w-6 inline text-secondary'></UserIcon>
+								<UserIcon className='w-6 inline text-secondary' />
 								<div>
 									<h4 className=' text-secondary font-semibold'>{user?.name || ''}</h4>
 									<p className='text-sm text-shadow'>{user?.is_admin ? 'Admin' : 'Colaborador'}</p>
@@ -30,7 +30,7 @@ export function AppLayout() {
 							onClick={handleLogout}
 							className={`cursor-pointer rounded hover:text-white block p-2 hover:bg-[#a52c00]`}
 						>
-							<ArrowLeftStartOnRectangleIcon className='w-6 inline hover:text-white '></ArrowLeftStartOnRectangleIcon>
+							<ArrowLeftStartOnRectangleIcon className='w-6 inline hover:text-white transition-all' />
 						</div>
 					</div>
 				</div>

@@ -28,3 +28,11 @@ dist-ssr
 
 # Enviroments
 .env
+
+# Locks
+yarn.lock
+package-lock.json
+
+# BuildInfos
+*.tsbuildinfo
+
