@@ -30,7 +30,7 @@ export function useForgotPasswordVerifyPage() {
 	};
 
 	const resendEmail = async () => {
-		const response = await request(() => authService.sendFirstAccessEmail(email));
+		const response = await request(() => authService.sendResetPasswordEmail(email));
 		if (!response) return;
 
 		toast.success(response.message);

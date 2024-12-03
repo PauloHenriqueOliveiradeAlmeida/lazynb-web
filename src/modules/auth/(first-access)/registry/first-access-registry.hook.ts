@@ -19,6 +19,7 @@ export function useFirstAccessRegistryPage() {
 	const authService = new AuthService();
 
 	const handleSubmit = async (values: firstAccessRegistrychemaValues) => {
+		if (values.password !== values.confirmPassword) return;
 		const response = await request(() => authService.sendFirstAccessEmail(values.email));
 		if (!response) return;
 

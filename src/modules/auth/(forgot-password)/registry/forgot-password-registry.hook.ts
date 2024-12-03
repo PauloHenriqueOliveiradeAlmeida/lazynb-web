@@ -20,6 +20,7 @@ export function useForgotPasswordRegistryPage() {
 	const authService = new AuthService();
 
 	const handleSubmit = async (values: forgotPasswordRegistrychemaValues) => {
+		if (values.password !== values.confirmPassword) return;
 		const response = await request(() =>
 			authService.resetPassword({
 				email,
