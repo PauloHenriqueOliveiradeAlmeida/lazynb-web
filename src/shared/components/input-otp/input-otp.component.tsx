@@ -29,7 +29,7 @@ export const InputOTP = ({ name }: InputOTPProps) => {
 					</>
 				))}
 			</div>
-			{states.meta.touched && states.meta.error && <div className='text-red-500'>{states.meta.error}</div>}
+			{states.meta.touched && states.meta.error && <div className='text-error'>{states.meta.error}</div>}
 		</div>
 	);
 };
