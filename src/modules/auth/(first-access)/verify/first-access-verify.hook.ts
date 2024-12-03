@@ -29,11 +29,18 @@ export function useFirstAccessVerifyPage() {
 		navigate('/first-access/successfully');
 	};
 
+	const resendEmail = async () => {
+		const response = await request(() => authService.sendFirstAccessEmail(email));
+		if (!response) return;
+
+		toast.success(response.message);
+	};
+
 	useEffect(() => {
 		if (!email || !password || !confirmPassword) navigate('/first-access/registry');
 	}, [email, password, confirmPassword, navigate]);
 
 	return {
-		handlers: { handleSubmit },
+		handlers: { handleSubmit, resendEmail },
 	};
 }

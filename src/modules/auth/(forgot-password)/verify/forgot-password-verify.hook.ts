@@ -29,11 +29,18 @@ export function useForgotPasswordVerifyPage() {
 		navigate('/forgot-password/registry');
 	};
 
+	const resendEmail = async () => {
+		const response = await request(() => authService.sendFirstAccessEmail(email));
+		if (!response) return;
+
+		toast.success(response.message);
+	};
+
 	useEffect(() => {
 		if (!email) navigate('/forgot-password/send');
 	}, [email, navigate]);
 
 	return {
-		handlers: { handleSubmit },
+		handlers: { handleSubmit, resendEmail },
 	};
 }
