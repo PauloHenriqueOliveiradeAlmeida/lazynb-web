@@ -17,7 +17,6 @@ import { NotFoundPage } from '@/modules/not-found.page';
 export function AppRoute() {
 	return (
 		<Routes>
-			<Route path='*' element={<NotFoundPage />} />
 			<Route path='/' element={<AppLayout />}>
 				<Route index element={<HomePage />} />
 				<Route path='client/report' element={<ClientReportPage />} />
@@ -42,6 +41,7 @@ export function AppRoute() {
 					</FormProvider>
 				}
 			/>
+			<Route path='*' element={<NotFoundPage />} />
 		</Routes>
 	);
 }

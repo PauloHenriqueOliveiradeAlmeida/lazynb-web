@@ -17,7 +17,6 @@ export function AuthRoute() {
 	return (
 		<FormProvider>
 			<Routes>
-				<Route path='*' element={<NotFoundPage />} />
 				<Route element={<FormLayout />}>
 					<Route index element={<LoginPage />} />
 					<Route path='login' element={<LoginPage />} />
@@ -46,6 +45,7 @@ export function AuthRoute() {
 							</ForgotPasswordProvider>
 						}
 					/>
+					<Route path='*' element={<NotFoundPage />} />
 				</Route>
 			</Routes>
 		</FormProvider>
