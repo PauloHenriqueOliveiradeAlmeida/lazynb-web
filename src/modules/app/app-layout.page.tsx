@@ -28,9 +28,9 @@ export function AppLayout() {
 						</div>
 						<div
 							onClick={handleLogout}
-							className={`cursor-pointer rounded hover:text-white block p-2 hover:bg-[#a52c00]`}
+							className={`cursor-pointer rounded hover:text-white block p-2 hover:bg-[#a52c00] transition-all`}
 						>
-							<ArrowLeftStartOnRectangleIcon className='w-6 inline hover:text-white transition-all' />
+							<ArrowLeftStartOnRectangleIcon className='w-6 inline hover:text-white' />
 						</div>
 					</div>
 				</div>
