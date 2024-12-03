@@ -14,7 +14,7 @@ export function FirstAccessVerifyPage() {
 	setFormPageTitle('Primeiro Acesso');
 
 	const {
-		handlers: { handleSubmit },
+		handlers: { handleSubmit, resendEmail },
 	} = useFirstAccessVerifyPage();
 
 	return (
@@ -28,7 +28,9 @@ export function FirstAccessVerifyPage() {
 				<Form className='flex flex-col gap-16'>
 					<div>
 						<InputOTP name='verificationCode' />
-						<span className='block text-right pt-2 cursor-pointer'>Reenviar email</span>
+						<span className='block text-right pt-2 cursor-pointer' onClick={resendEmail}>
+							Reenviar email
+						</span>
 					</div>
 					<div className='flex justify-around items-center'>
 						<Button label='Finalizar' variant='filled' fullWidth />
