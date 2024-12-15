@@ -15,7 +15,7 @@ Frontend do sistema de gestão imobiliária Lazynb, desenvolvido como Projeto In
 - Exibição de dados
 - Cadastro
 - Atualização
-- Exlusão
+- Exclusão
 
 
 ## 🔧 Configuração do projeto
